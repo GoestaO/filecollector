@@ -1,6 +1,6 @@
 import os
-from pprint import pprint
 import shutil
+from pprint import pprint
 
 class Filecollector:
     def __init__(self, src, dest, filter):
@@ -29,11 +29,20 @@ class Filecollector:
         if destination == None:
             destination = self.dest
 
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+
         for f in listoffiles:
-            shutil.copy(f, destination)
+            try:
+                shutil.copy(f, destination)
+            except shutil.SameFileError as e:
+                print("{}".format(e))
+                continue
+
+
 
 if __name__ == '__main__':
     collector = Filecollector('/Users/gostendorf/Downloads', '/Users/gostendorf/Downloads/Testfolder', ".pdf")
     collector.findAllFiles()
+    pprint(collector.filelist)
     collector.copyFiles()
-    #pprint(collector.filelist)

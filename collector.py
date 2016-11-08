@@ -17,10 +17,15 @@ class Filecollector:
         files = os.listdir(directory)
         for f in files:
             file = os.path.join(directory, f)
-            if os.path.isfile(file) and f.endswith(self.filter):
+            if os.path.isfile(file):
+            #if os.path.isfile(file) and f.endswith(self.filter):
                 self.filelist.append(file)
             if os.path.isdir(file):
                 self.findAllFiles(directory=file)
+
+    def filterFiles(self, filelist, filetype):
+        return filter(lambda x: x.endswith(filetype), filelist)
+
 
     def copyFiles(self, listoffiles=None, destination=None):
         if listoffiles == None:
@@ -44,5 +49,6 @@ class Filecollector:
 if __name__ == '__main__':
     collector = Filecollector('/Users/gostendorf/Downloads', '/Users/gostendorf/Downloads/Testfolder', ".pdf")
     collector.findAllFiles()
-    pprint(collector.filelist)
-    collector.copyFiles()
+    files = collector.filelist
+    filteredlist = list(collector.filterFiles(files, ".pdf"))
+    collector.copyFiles(filteredlist)

@@ -1,6 +1,7 @@
 import os
 import shutil
 from pprint import pprint
+import re
 
 class Filecollector:
     def __init__(self, src, dest, filter):
@@ -38,6 +39,7 @@ class Filecollector:
             os.makedirs(destination)
 
         for f in listoffiles:
+
             try:
                 shutil.copy(f, destination)
             except shutil.SameFileError as e:
@@ -45,10 +47,18 @@ class Filecollector:
                 continue
 
 
-
 if __name__ == '__main__':
-    collector = Filecollector('/Users/gostendorf/Downloads', '/Users/gostendorf/Downloads/Testfolder', ".pdf")
+    collector = Filecollector('/media/DATA/Downloads/CD.Wissen.-.Reise.durch.die.Weltgeschichte', '/media/DATA/Downloads/Reise durch die Weltgeschichte', ".mp3")
     collector.findAllFiles()
     files = collector.filelist
-    filteredlist = list(collector.filterFiles(files, ".pdf"))
-    collector.copyFiles(filteredlist)
+    filteredlist = list(collector.filterFiles(files, ".mp3"))
+    num = 1
+    for f in filteredlist:
+        newname = "{:3d}".format(num)
+        filename = os.path.basename(f)
+        path = os.path.dirname(f)
+        foldername = os.path.basename(path)
+        newname = "{} _ {}".format(foldername, filename)
+        newfullpath = "{}/{}".format("/media/DATA/Downloads/Reise durch die Weltgeschichte",newname)
+        shutil.copyfile(f,newfullpath)
+    #collector.copyFiles(filteredlist)

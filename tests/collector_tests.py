@@ -1,7 +1,17 @@
 import unittest
-from collector import showFilteredFiles
+from collector import showFilteredFiles, findAllFiles
+
 
 class CollectorTest(unittest.TestCase):
+
+    def setUp(self):
+        self.src = '/Users/gostendorf/PycharmProjects/filecollector/tests/testfiles'
+
+    ## Check, if all files in the folder and subfolder have been found
+    def test_find_all_files(self):
+        file_list = findAllFiles(self.src)
+        self.assertIsNotNone(file_list, "[findAllFiles] The file list is null, this is not good!")
+        self.assertEqual(len(file_list), 9, "[findAllFiles] The file list should contain 9 elements!")
 
     def test_filtered_python_files(self):
         src = '/Users/gostendorf/PycharmProjects/filecollector/tests/testfiles'
@@ -13,7 +23,7 @@ class CollectorTest(unittest.TestCase):
         src = '/Users/gostendorf/PycharmProjects/filecollector/tests/testfiles'
         filetype = '.pdf'
         filtered_files = showFilteredFiles(src, filetype)
-        self.assertEqual(len(filtered_files), 3, 'The number of files should be 3')
+        self.assertEqual(len(filtered_files), 4, 'The number of files should be 4')
 
     def test_filtered_jpg_files(self):
         src = '/Users/gostendorf/PycharmProjects/filecollector/tests/testfiles'
@@ -26,14 +36,6 @@ class CollectorTest(unittest.TestCase):
         filetype = '.png'
         filtered_files = showFilteredFiles(src, filetype)
         self.assertEqual(len(filtered_files), 1, 'The number of files should be 1')
-
-            # def test_upper(self):
-    #     self.assertEqual('foo'.upper(), 'FOO')
-    #
-    # def test_isupper(self):
-    #     self.assertTrue('FOO'.isupper())
-    #     self.assertFalse('Foo'.isupper())
-
 
 if __name__ == '__main__':
     unittest.main()

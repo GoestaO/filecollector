@@ -48,7 +48,7 @@ shows all pdf files in the specified folder, without the optional --src paramete
 
 ```
 collector consolidate --src /path/of/src/folder --filetype .pdf --dest /path/to/dest/folder
-`` 
+``` 
 
 copies all pdf files from the source folder to the destination folder
 

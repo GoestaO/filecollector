@@ -28,7 +28,7 @@ The above activation example will always invoke your application on startup. Thi
 This can be easily accomplished:
 
 ```
-_filecollector_COMPLETE=source filecollector > filecollector-complete.sh
+_FILECOLLECTOR_COMPLETE=source filecollector > filecollector-complete.sh
 ```
 
 And then you would put this into your `~/.bashrc` instead:
@@ -37,16 +37,19 @@ And then you would put this into your `~/.bashrc` instead:
 . path/to/filecollector/python/filecollector-complete.sh
 ```
 
-### How to use the tool
+### How to use the tool`
 
-The tool has two subcommands so far:
-* show
-    * Example:
-        * `collector show --src /path/to/a/folder --filetype .pdf` shows all pdf files in the specified folder, without the optional --src parameter it checks the current folder 
+Examples
 
+```
+collector show --src /path/to/a/folder --filetype .pdf
+```
+shows all pdf files in the specified folder, without the optional --src parameter it checks the current folder 
 
-* consolidate
-    * Example:
-        * `collector consolidate --src /path/of/src/folder --filetype .pdf --dest /path/to/dest/folder` copies all pdf files from the source folder to the destination folder
+```
+collector consolidate --src /path/of/src/folder --filetype .pdf --dest /path/to/dest/folder
+`` 
+
+copies all pdf files from the source folder to the destination folder
 
 
